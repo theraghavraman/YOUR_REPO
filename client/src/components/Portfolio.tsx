@@ -3,6 +3,7 @@ import { motion, useAnimation, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import ParticlesBackground from './ParticlesBackground';
 import CustomCursor from './CustomCursor';
+import ThemeToggle from './ThemeToggle';
 
 // Navigation Component
 const Navigation = () => {
@@ -53,46 +54,52 @@ const Navigation = () => {
             </div>
 
             {/* Desktop Menu */}
-            <ul className="hidden md:flex items-center space-x-8" data-testid="desktop-menu">
-              {[
-                { href: '#about', label: 'About' },
-                { href: '#skills', label: 'Skills' },
-                { href: '#projects', label: 'Projects' },
-                { href: '#certifications', label: 'Certifications' },
-              ].map((item) => (
-                <li key={item.href}>
+            <div className="hidden md:flex items-center gap-6">
+              <ul className="flex items-center space-x-8" data-testid="desktop-menu">
+                {[
+                  { href: '#about', label: 'About' },
+                  { href: '#skills', label: 'Skills' },
+                  { href: '#projects', label: 'Projects' },
+                  { href: '#certifications', label: 'Certifications' },
+                ].map((item) => (
+                  <li key={item.href}>
+                    <a 
+                      href={item.href} 
+                      className="text-foreground hover:text-primary transition-colors duration-300 font-medium relative group"
+                      data-testid={`nav-link-${item.label.toLowerCase()}`}
+                    >
+                      {item.label}
+                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                  </li>
+                ))}
+                <li>
                   <a 
-                    href={item.href} 
-                    className="text-foreground hover:text-primary transition-colors duration-300 font-medium relative group"
-                    data-testid={`nav-link-${item.label.toLowerCase()}`}
+                    href="#contact" 
+                    className="px-6 py-2 bg-gradient-to-r from-primary to-secondary rounded-full text-foreground font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
+                    data-testid="nav-contact-button"
                   >
-                    {item.label}
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary group-hover:w-full transition-all duration-300"></span>
+                    Contact
                   </a>
                 </li>
-              ))}
-              <li>
-                <a 
-                  href="#contact" 
-                  className="px-6 py-2 bg-gradient-to-r from-primary to-secondary rounded-full text-foreground font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 hover:scale-105"
-                  data-testid="nav-contact-button"
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
+              </ul>
+              <ThemeToggle />
+            </div>
 
-            {/* Mobile Menu Button */}
-            <button 
-              className={`md:hidden mobile-menu flex flex-col space-y-1.5 z-50 ${isMobileMenuOpen ? 'active' : ''}`}
-              onClick={toggleMobileMenu}
-              aria-label="Toggle menu"
-              data-testid="mobile-menu-button"
-            >
-              <span className="mobile-menu-line w-6 h-0.5 bg-foreground block"></span>
-              <span className="mobile-menu-line w-6 h-0.5 bg-foreground block"></span>
-              <span className="mobile-menu-line w-6 h-0.5 bg-foreground block"></span>
-            </button>
+            {/* Mobile Menu Button & Theme Toggle */}
+            <div className="md:hidden flex items-center gap-3">
+              <ThemeToggle />
+              <button 
+                className={`mobile-menu flex flex-col space-y-1.5 z-50 ${isMobileMenuOpen ? 'active' : ''}`}
+                onClick={toggleMobileMenu}
+                aria-label="Toggle menu"
+                data-testid="mobile-menu-button"
+              >
+                <span className="mobile-menu-line w-6 h-0.5 bg-foreground block"></span>
+                <span className="mobile-menu-line w-6 h-0.5 bg-foreground block"></span>
+                <span className="mobile-menu-line w-6 h-0.5 bg-foreground block"></span>
+              </button>
+            </div>
           </nav>
 
           {/* Mobile Menu */}
