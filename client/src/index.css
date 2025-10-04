@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(222, 47%, 11%);
+  --foreground: hsl(210, 40%, 98%);
+  --primary: hsl(258, 90%, 66%);
+  --primary-foreground: hsl(210, 40%, 98%);
+  --secondary: hsl(330, 81%, 60%);
+  --secondary-foreground: hsl(210, 40%, 98%);
+  --accent: hsl(189, 94%, 43%);
+  --accent-foreground: hsl(210, 40%, 98%);
+  --muted: hsl(217, 33%, 17%);
+  --muted-foreground: hsl(215, 20%, 65%);
+  --card: hsl(217, 33%, 17%);
+  --card-foreground: hsl(210, 40%, 98%);
+  --popover: hsl(222, 47%, 11%);
+  --popover-foreground: hsl(210, 40%, 98%);
+  --border: hsl(217, 33%, 17%);
+  --input: hsl(217, 33%, 17%);
+  --ring: hsl(258, 90%, 66%);
+  --destructive: hsl(0, 62%, 30%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --neon-pink: hsl(330, 81%, 60%);
+  --neon-purple: hsl(258, 90%, 66%);
+  --neon-cyan: hsl(189, 94%, 43%);
+  --neon-green: hsl(142, 76%, 36%);
+  --neon-yellow: hsl(84, 81%, 44%);
+  --dark: hsl(222, 47%, 11%);
+  --dark-light: hsl(217, 33%, 17%);
+  --font-sans: 'Inter', sans-serif;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+.dark {
+  --background: hsl(222, 47%, 11%);
+  --foreground: hsl(210, 40%, 98%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
+    scroll-behavior: smooth;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  body::-webkit-scrollbar-track {
+    background: hsl(222, 47%, 11%);
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, hsl(258, 90%, 66%), hsl(330, 81%, 60%));
+    border-radius: 10px;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(258, 90%, 66%) 0%, hsl(330, 81%, 60%) 50%, hsl(189, 94%, 43%) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .neon-border {
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5),
+                0 0 20px rgba(139, 92, 246, 0.3),
+                inset 0 0 10px rgba(139, 92, 246, 0.1);
+  }
+
+  .bg-grid {
+    background-image: 
+      linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  .custom-cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid hsl(258, 90%, 66%);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: all 0.1s ease;
+    mix-blend-mode: difference;
+  }
+}
+
+@layer components {
+  .glitch {
+    position: relative;
+  }
+
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 hsl(330, 81%, 60%);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+  }
+
+  .glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 hsl(189, 94%, 43%);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
+  }
+
+  @keyframes glitch-anim {
+    0% { clip: rect(10px, 9999px, 31px, 0); }
+    20% { clip: rect(70px, 9999px, 71px, 0); }
+    40% { clip: rect(90px, 9999px, 130px, 0); }
+    60% { clip: rect(11px, 9999px, 60px, 0); }
+    80% { clip: rect(50px, 9999px, 105px, 0); }
+    100% { clip: rect(31px, 9999px, 150px, 0); }
+  }
+
+  @keyframes glitch-anim2 {
+    0% { clip: rect(65px, 9999px, 119px, 0); }
+    20% { clip: rect(52px, 9999px, 140px, 0); }
+    40% { clip: rect(79px, 9999px, 85px, 0); }
+    60% { clip: rect(106px, 9999px, 112px, 0); }
+    80% { clip: rect(15px, 9999px, 75px, 0); }
+    100% { clip: rect(24px, 9999px, 141px, 0); }
+  }
+
+  @keyframes gradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes grid-move {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-gradient {
+    animation: gradient 3s ease infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-grid-move {
+    animation: grid-move 20s linear infinite;
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .mobile-menu-line {
+    transition: all 0.3s ease;
+  }
+
+  .mobile-menu.active .mobile-menu-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .mobile-menu.active .mobile-menu-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu.active .mobile-menu-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+}
